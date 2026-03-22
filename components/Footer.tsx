@@ -28,7 +28,7 @@ export default function Footer() {
 
         <div className="mt-12 text-champagne/30 text-xs">
           {t('Built with love by', 'Feito com amor por')}{' '}
-          <span className="text-soft-gold/50">Nova CX</span>
+          <a href="https://nova-cx.com" target="_blank" rel="noopener noreferrer" className="text-soft-gold/50 hover:text-soft-gold transition-colors">Nova CX</a>
         </div>
       </div>
     </footer>

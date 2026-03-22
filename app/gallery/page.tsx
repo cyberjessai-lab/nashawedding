@@ -1,9 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
-import { LanguageProvider, useLanguage } from '@/lib/language'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import { useLanguage } from '@/lib/language'
+import Lightbox from '@/components/Lightbox'
 
 const photos = [
   { src: '/images/hero-couple.jpg', captionEn: 'Engagement Session', captionPt: 'Sessao de Noivado', aspect: 'aspect-[3/4]' },
@@ -19,60 +19,69 @@ const photos = [
   { src: '/images/hero-couple.jpg', captionEn: 'Pure Happiness', captionPt: 'Pura Felicidade', aspect: 'aspect-square' },
 ]
 
-function GalleryContent() {
+export default function GalleryPage() {
   const { t } = useLanguage()
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  const lightboxImages = photos.map((p) => ({
+    src: p.src,
+    caption: t(p.captionEn, p.captionPt),
+  }))
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen bg-cream pt-32 pb-24 px-6">
-        <div className="text-center mb-20">
-          <p className="text-soft-gold uppercase tracking-[0.3em] text-xs mb-4">
-            {t('Memories', 'Memorias')}
-          </p>
-          <h1 className="font-display text-5xl md:text-6xl text-chocolate italic font-light mb-6">
-            {t('Our Gallery', 'Nossa Galeria')}
-          </h1>
-          <div className="section-divider" />
-        </div>
+    <div className="min-h-screen bg-cream pt-32 pb-24 px-6">
+      <div className="text-center mb-20">
+        <p className="text-soft-gold uppercase tracking-[0.3em] text-xs mb-4 animate-fade-in">
+          {t('Memories', 'Memorias')}
+        </p>
+        <h1 className="font-display text-5xl md:text-6xl text-chocolate italic font-light mb-6 animate-fade-in-up">
+          {t('Our Gallery', 'Nossa Galeria')}
+        </h1>
+        <div className="section-divider" />
+        <p className="text-caramel text-sm">
+          {t('Click any photo to view full size', 'Clique em qualquer foto para ver em tamanho real')}
+        </p>
+      </div>
 
-        <div className="max-w-6xl mx-auto columns-1 sm:columns-2 lg:columns-3 gap-4">
-          {photos.map((photo, i) => (
-            <div key={i} className="break-inside-avoid mb-4 group relative overflow-hidden rounded-2xl">
-              <div className={`${photo.aspect} relative`}>
-                <Image
-                  src={photo.src}
-                  alt={photo.captionEn}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-chocolate/50">
-                  <p className="text-champagne font-display text-xl italic">
-                    {t(photo.captionEn, photo.captionPt)}
-                  </p>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-chocolate/60 to-transparent">
-                  <p className="text-champagne/80 text-xs">{t(photo.captionEn, photo.captionPt)}</p>
-                </div>
+      <div className="max-w-6xl mx-auto columns-1 sm:columns-2 lg:columns-3 gap-4">
+        {photos.map((photo, i) => (
+          <div
+            key={i}
+            className="break-inside-avoid mb-4 group relative overflow-hidden rounded-2xl cursor-pointer transform hover:scale-[1.02] transition-transform duration-300"
+            onClick={() => setLightboxIndex(i)}
+          >
+            <div className={`${photo.aspect} relative`}>
+              <Image
+                src={photo.src}
+                alt={photo.captionEn}
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-chocolate/50">
+                <p className="text-champagne font-display text-xl italic">
+                  {t(photo.captionEn, photo.captionPt)}
+                </p>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-chocolate/60 to-transparent">
+                <p className="text-champagne/80 text-xs">{t(photo.captionEn, photo.captionPt)}</p>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
 
-        <p className="text-center text-caramel/50 text-xs mt-12">
-          {t('Photos by Moses Media House', 'Fotos por Moses Media House')}
-        </p>
-      </main>
-      <Footer />
-    </>
-  )
-}
+      <p className="text-center text-caramel/50 text-xs mt-12">
+        {t('Photos by Moses Media House', 'Fotos por Moses Media House')}
+      </p>
 
-export default function GalleryPage() {
-  return (
-    <LanguageProvider>
-      <GalleryContent />
-    </LanguageProvider>
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={lightboxImages}
+          initialIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      )}
+    </div>
   )
 }

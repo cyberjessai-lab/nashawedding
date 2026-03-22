@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { LanguageProvider, useLanguage } from '@/lib/language'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import { useLanguage } from '@/lib/language'
 import { ChevronDown } from 'lucide-react'
 
 const faqs = [
@@ -90,38 +88,26 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   )
 }
 
-function FaqContent() {
+export default function FaqPage() {
   const { t } = useLanguage()
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen bg-cream pt-32 pb-24 px-6">
-        <div className="text-center mb-16">
-          <p className="text-soft-gold uppercase tracking-[0.3em] text-xs mb-4">
-            {t('Questions?', 'Perguntas?')}
-          </p>
-          <h1 className="font-display text-5xl md:text-6xl text-chocolate italic font-light mb-6">
-            {t('FAQ', 'Perguntas Frequentes')}
-          </h1>
-          <div className="section-divider" />
-        </div>
+    <div className="min-h-screen bg-cream pt-32 pb-24 px-6">
+      <div className="text-center mb-16">
+        <p className="text-soft-gold uppercase tracking-[0.3em] text-xs mb-4">
+          {t('Questions?', 'Perguntas?')}
+        </p>
+        <h1 className="font-display text-5xl md:text-6xl text-chocolate italic font-light mb-6">
+          {t('FAQ', 'Perguntas Frequentes')}
+        </h1>
+        <div className="section-divider" />
+      </div>
 
-        <div className="max-w-2xl mx-auto card-elegant">
-          {faqs.map((faq, i) => (
-            <FaqItem key={i} q={t(faq.qEn, faq.qPt)} a={t(faq.aEn, faq.aPt)} />
-          ))}
-        </div>
-      </main>
-      <Footer />
-    </>
-  )
-}
-
-export default function FaqPage() {
-  return (
-    <LanguageProvider>
-      <FaqContent />
-    </LanguageProvider>
+      <div className="max-w-2xl mx-auto card-elegant">
+        {faqs.map((faq, i) => (
+          <FaqItem key={i} q={t(faq.qEn, faq.qPt)} a={t(faq.aEn, faq.aPt)} />
+        ))}
+      </div>
+    </div>
   )
 }

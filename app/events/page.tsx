@@ -1,9 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { LanguageProvider, useLanguage } from '@/lib/language'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import { useLanguage } from '@/lib/language'
 import { Heart, Wine, Music, Smile, MapPin } from 'lucide-react'
 
 const events = [
@@ -41,83 +39,71 @@ const events = [
   },
 ]
 
-function EventsContent() {
+export default function EventsPage() {
   const { t } = useLanguage()
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen bg-cream pt-32 pb-24 px-6">
-        <div className="text-center mb-20">
-          <p className="text-soft-gold uppercase tracking-[0.3em] text-xs mb-4">
-            {t('The Big Day', 'O Grande Dia')}
-          </p>
-          <h1 className="font-display text-5xl md:text-6xl text-chocolate italic font-light mb-6">
-            {t('Wedding Events', 'Eventos do Casamento')}
-          </h1>
-          <div className="section-divider" />
-          <p className="text-caramel">Saturday, 22 August 2026</p>
-        </div>
+    <div className="min-h-screen bg-cream pt-32 pb-24 px-6">
+      <div className="text-center mb-20">
+        <p className="text-soft-gold uppercase tracking-[0.3em] text-xs mb-4">
+          {t('The Big Day', 'O Grande Dia')}
+        </p>
+        <h1 className="font-display text-5xl md:text-6xl text-chocolate italic font-light mb-6">
+          {t('Wedding Events', 'Eventos do Casamento')}
+        </h1>
+        <div className="section-divider" />
+        <p className="text-caramel">Saturday, 22 August 2026</p>
+      </div>
 
-        <div className="max-w-3xl mx-auto space-y-8">
-          {events.map((event) => {
-            const Icon = event.icon
-            return (
-              <div key={event.time} className="card-elegant flex flex-col sm:flex-row items-start gap-6">
-                <div className="flex-shrink-0 text-center">
-                  <div className="w-14 h-14 rounded-full bg-soft-gold/10 border border-soft-gold/30 flex items-center justify-center mb-2">
-                    <Icon className="w-6 h-6 text-soft-gold" />
-                  </div>
-                  <p className="text-soft-gold text-xs font-medium">{event.time}</p>
+      <div className="max-w-3xl mx-auto space-y-8">
+        {events.map((event) => {
+          const Icon = event.icon
+          return (
+            <div key={event.time} className="card-elegant flex flex-col sm:flex-row items-start gap-6">
+              <div className="flex-shrink-0 text-center">
+                <div className="w-14 h-14 rounded-full bg-soft-gold/10 border border-soft-gold/30 flex items-center justify-center mb-2">
+                  <Icon className="w-6 h-6 text-soft-gold" />
                 </div>
-                <div>
-                  <h3 className="font-display text-2xl text-chocolate mb-3">
-                    {t(event.titleEn, event.titlePt)}
-                  </h3>
-                  <p className="text-caramel leading-relaxed text-sm">
-                    {t(event.descEn, event.descPt)}
-                  </p>
-                </div>
+                <p className="text-soft-gold text-xs font-medium">{event.time}</p>
               </div>
-            )
-          })}
-        </div>
-
-        {/* Venue card */}
-        <div className="max-w-xl mx-auto mt-16">
-          <div className="card-elegant text-center overflow-hidden">
-            <div className="relative h-48 -mx-8 -mt-8 mb-6">
-              <Image
-                src="/images/venue-country-club.jpeg"
-                alt="Windhoek Country Club Resort"
-                fill
-                className="object-cover"
-              />
+              <div>
+                <h3 className="font-display text-2xl text-chocolate mb-3">
+                  {t(event.titleEn, event.titlePt)}
+                </h3>
+                <p className="text-caramel leading-relaxed text-sm">
+                  {t(event.descEn, event.descPt)}
+                </p>
+              </div>
             </div>
-            <MapPin className="w-8 h-8 text-soft-gold mx-auto mb-4" />
-            <h3 className="font-display text-2xl text-chocolate mb-2">{t('Venue', 'Local')}</h3>
-            <p className="text-caramel text-sm mb-1">Windhoek Country Club Resort</p>
-            <p className="text-caramel/60 text-xs mb-6">Western Bypass, Windhoek, Namibia</p>
-            <a
-              href="https://maps.google.com/?q=Windhoek+Country+Club+Resort"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline-gold inline-block"
-            >
-              {t('Get Directions', 'Obter Direcoes')}
-            </a>
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </>
-  )
-}
+          )
+        })}
+      </div>
 
-export default function EventsPage() {
-  return (
-    <LanguageProvider>
-      <EventsContent />
-    </LanguageProvider>
+      {/* Venue card */}
+      <div className="max-w-xl mx-auto mt-16">
+        <div className="card-elegant text-center overflow-hidden">
+          <div className="relative h-48 -mx-8 -mt-8 mb-6">
+            <Image
+              src="/images/venue-country-club.jpeg"
+              alt="Windhoek Country Club Resort"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <MapPin className="w-8 h-8 text-soft-gold mx-auto mb-4" />
+          <h3 className="font-display text-2xl text-chocolate mb-2">{t('Venue', 'Local')}</h3>
+          <p className="text-caramel text-sm mb-1">Windhoek Country Club Resort</p>
+          <p className="text-caramel/60 text-xs mb-6">Western Bypass, Windhoek, Namibia</p>
+          <a
+            href="https://maps.google.com/?q=Windhoek+Country+Club+Resort"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline-gold inline-block"
+          >
+            {t('Get Directions', 'Obter Direcoes')}
+          </a>
+        </div>
+      </div>
+    </div>
   )
 }
