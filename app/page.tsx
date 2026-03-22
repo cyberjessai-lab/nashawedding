@@ -17,10 +17,29 @@ export default function HomePage() {
           src="/images/hero-couple.jpg"
           alt="Celson and Nasha"
           fill
-          className="object-cover opacity-40"
+          className="object-cover opacity-50 animate-hero-breathe"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-chocolate/60 via-chocolate/30 to-chocolate/60" />
+        {/* Shimmer light sweep */}
+        <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full bg-white/20 animate-particle"
+              style={{
+                width: `${2 + Math.random() * 4}px`,
+                height: `${2 + Math.random() * 4}px`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 8}s`,
+                animationDuration: `${6 + Math.random() * 8}s`,
+              }}
+            />
+          ))}
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-chocolate/60 via-chocolate/20 to-chocolate/60" />
         <div className="relative z-10 text-center px-6 pt-20">
           <p className="text-soft-gold uppercase tracking-[0.4em] text-xs mb-6 animate-fade-in">
             {t('Together with their families', 'Juntos com as suas familias')}
