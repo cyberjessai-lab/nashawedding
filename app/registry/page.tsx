@@ -71,12 +71,18 @@ function RegistryContent() {
           </div>
         </div>
 
-        <p className="text-center text-caramel/50 text-xs mt-12 max-w-md mx-auto">
-          {t(
-            'Please use "CN Wedding" as your payment reference so we can thank you personally.',
-            'Por favor, use "CN Wedding" como referencia de pagamento para que possamos agradecer pessoalmente.'
-          )}
-        </p>
+        <div className="max-w-md mx-auto mt-12 text-center card-elegant">
+          <p className="text-chocolate font-medium text-sm mb-2">
+            {t('Payment Reference', 'Referencia de Pagamento')}
+          </p>
+          <p className="font-display text-2xl text-soft-gold mb-3">CN Wedding</p>
+          <p className="text-caramel/60 text-xs">
+            {t(
+              'Please use this reference so we can identify your gift and thank you personally.',
+              'Por favor, use esta referencia para que possamos identificar o seu presente e agradecer pessoalmente.'
+            )}
+          </p>
+        </div>
       </main>
       <Footer />
     </>

@@ -14,6 +14,7 @@ export default function Navbar() {
     { href: '/gallery', label: t('Gallery', 'Galeria') },
     { href: '/events', label: t('Events', 'Eventos') },
     { href: '/dresscode', label: t('Dress Code', 'Traje') },
+    { href: '/party', label: t('Wedding Party', 'Cortejo') },
     { href: '/accommodation', label: t('Stay', 'Alojamento') },
     { href: '/rsvp', label: 'RSVP' },
     { href: '/guestbook', label: t('Guestbook', 'Livro') },
