@@ -26,7 +26,7 @@ export default function MusicPlayer() {
 
   return (
     <>
-      <audio ref={audioRef} src="/music/nervous.mp3" loop preload="none" />
+      <audio ref={audioRef} src="/music/nervous.m4a" loop preload="none" />
       <button
         onClick={toggle}
         className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-soft-gold text-white flex items-center justify-center shadow-lg hover:bg-[#B8943D] transition-all duration-300"
