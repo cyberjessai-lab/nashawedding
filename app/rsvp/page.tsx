@@ -16,6 +16,14 @@ function RsvpContent() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
+    const subject = encodeURIComponent(`Wedding RSVP — ${name}`)
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nAttending: ${attending === 'yes' ? 'Yes' : 'No'}\nGuests: ${guests}\nDietary: ${dietary || 'None'}`
+    )
+    window.open(
+      `mailto:mbinajedanisha@gmail.com?cc=nashasch@gmail.com&subject=${subject}&body=${body}`,
+      '_blank'
+    )
     setSubmitted(true)
   }
 

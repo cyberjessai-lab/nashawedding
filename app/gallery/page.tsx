@@ -10,11 +10,13 @@ const photos = [
   { src: '/images/gallery/couple-2.jpg', captionEn: 'Sunset in Sossusvlei', captionPt: 'Por do Sol em Sossusvlei', aspect: 'aspect-square' },
   { src: '/images/gallery/couple-3.webp', captionEn: 'Together in the City', captionPt: 'Juntos na Cidade', aspect: 'aspect-[4/3]' },
   { src: '/images/gallery/couple-4.jpg', captionEn: 'The Proposal', captionPt: 'O Pedido', aspect: 'aspect-[3/4]' },
-  { src: '/images/couple-portrait.jpg', captionEn: 'Laughter & Joy', captionPt: 'Risos e Alegria', aspect: 'aspect-square' },
-  { src: '/images/gallery/couple-2.jpg', captionEn: 'Hand in Hand', captionPt: 'De Maos Dadas', aspect: 'aspect-[4/3]' },
-  { src: '/images/gallery/couple-3.webp', captionEn: 'Desert Love', captionPt: 'Amor no Deserto', aspect: 'aspect-square' },
-  { src: '/images/gallery/couple-4.jpg', captionEn: 'Our Adventure', captionPt: 'Nossa Aventura', aspect: 'aspect-[3/4]' },
-  { src: '/images/hero-couple.jpg', captionEn: 'Pure Happiness', captionPt: 'Pura Felicidade', aspect: 'aspect-[4/3]' },
+  { src: '/images/gallery/couple-5.jpg', captionEn: 'Our Love Story', captionPt: 'Nossa Historia de Amor', aspect: 'aspect-square' },
+  { src: '/images/couple-portrait.jpg', captionEn: 'Laughter & Joy', captionPt: 'Risos e Alegria', aspect: 'aspect-[4/3]' },
+  { src: '/images/gallery/couple-6.jpg', captionEn: 'Hand in Hand', captionPt: 'De Maos Dadas', aspect: 'aspect-[3/4]' },
+  { src: '/images/gallery/couple-7.jpg', captionEn: 'Desert Love', captionPt: 'Amor no Deserto', aspect: 'aspect-square' },
+  { src: '/images/gallery/couple-8.jpg', captionEn: 'Forever Begins', captionPt: 'O Inicio do Sempre', aspect: 'aspect-[4/3]' },
+  { src: '/images/gallery/couple-9.jpg', captionEn: 'Our Adventure', captionPt: 'Nossa Aventura', aspect: 'aspect-[3/4]' },
+  { src: '/images/hero-couple.jpg', captionEn: 'Pure Happiness', captionPt: 'Pura Felicidade', aspect: 'aspect-square' },
 ]
 
 function GalleryContent() {

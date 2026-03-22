@@ -25,6 +25,8 @@ const timelineEvents = [
     titlePt: 'Tornando Oficial',
     descEn: 'After months of getting to know each other, Celson asked Nasha to be his girlfriend during a sunset drive through the Khomas Hochland.',
     descPt: 'Apos meses de conhecer um ao outro, Celson pediu Nasha para ser sua namorada durante um passeio ao por do sol pelo Khomas Hochland.',
+    quoteEn: '"Dear Mr. My boyfriend, please find the attached file." — and she sent him a house for sale. He replied: "Dear future wife, I must admit that you never cease to amaze me, the quality and details of your piece of work are exquisite. P.S. LFG!"',
+    quotePt: '"Caro Sr. Meu namorado, por favor encontre o ficheiro anexo." — e ela enviou-lhe uma casa a venda. Ele respondeu: "Cara futura esposa, devo admitir que nunca deixas de me surpreender, a qualidade e os detalhes do teu trabalho sao requintados. P.S. LFG!"',
   },
   {
     year: '2023',
@@ -92,6 +94,11 @@ function StoryContent() {
                 <p className="text-caramel leading-relaxed">
                   {t(event.descEn, event.descPt)}
                 </p>
+                {'quoteEn' in event && (event as any).quoteEn && (
+                  <blockquote className="mt-4 pl-4 border-l-2 border-soft-gold/30 italic text-caramel/70 text-sm leading-relaxed">
+                    {t((event as any).quoteEn, (event as any).quotePt)}
+                  </blockquote>
+                )}
               </div>
             </div>
           ))}

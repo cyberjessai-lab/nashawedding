@@ -6,6 +6,7 @@ import PasswordGate from '@/components/PasswordGate'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Countdown from '@/components/Countdown'
+import MusicPlayer from '@/components/MusicPlayer'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Calendar, MapPin, Clock } from 'lucide-react'
@@ -149,6 +150,7 @@ export default function Page() {
       ) : (
         <>
           <Navbar />
+          <MusicPlayer />
           <main className="min-h-screen">
             <HomePage />
           </main>
