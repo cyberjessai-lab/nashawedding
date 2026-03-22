@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Countdown from '@/components/Countdown'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Calendar, MapPin, Clock } from 'lucide-react'
 
 function HomePage() {
@@ -16,6 +17,13 @@ function HomePage() {
     <>
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center bg-chocolate overflow-hidden">
+        <Image
+          src="/images/hero-couple.jpg"
+          alt="Celson and Nasha"
+          fill
+          className="object-cover opacity-40"
+          priority
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-chocolate/50 via-chocolate/30 to-chocolate/50" />
         <div className="relative z-10 text-center px-6 pt-20">
           <p className="text-soft-gold uppercase tracking-[0.4em] text-xs mb-6">
@@ -52,6 +60,15 @@ function HomePage() {
       {/* Couple Portrait */}
       <section className="bg-champagne/50 py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
+          <div className="w-64 h-64 mx-auto mb-8 rounded-full overflow-hidden border-4 border-soft-gold/30">
+            <Image
+              src="/images/couple-portrait.jpg"
+              alt="Celson and Nasha together"
+              width={256}
+              height={256}
+              className="object-cover w-full h-full"
+            />
+          </div>
           <p className="text-soft-gold uppercase tracking-[0.3em] text-xs mb-4">
             {t("We're Getting Married", 'Vamos Casar')}
           </p>

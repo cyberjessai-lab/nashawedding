@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { LanguageProvider, useLanguage } from '@/lib/language'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -28,6 +29,17 @@ function DressCodeContent() {
             {t('Dress Code', 'Traje')}
           </h1>
           <div className="section-divider" />
+        </div>
+
+        {/* Inspiration image */}
+        <div className="max-w-md mx-auto mb-16 rounded-2xl overflow-hidden shadow-lg">
+          <Image
+            src="/images/dresscode-inspiration.jpeg"
+            alt="Dress code inspiration — shades of brown"
+            width={448}
+            height={600}
+            className="w-full h-auto object-cover"
+          />
         </div>
 
         {/* Formal elegance */}

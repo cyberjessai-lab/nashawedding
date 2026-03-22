@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { LanguageProvider, useLanguage } from '@/lib/language'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -84,7 +85,15 @@ function EventsContent() {
 
         {/* Venue card */}
         <div className="max-w-xl mx-auto mt-16">
-          <div className="card-elegant text-center">
+          <div className="card-elegant text-center overflow-hidden">
+            <div className="relative h-48 -mx-8 -mt-8 mb-6">
+              <Image
+                src="/images/venue-country-club.jpeg"
+                alt="Windhoek Country Club Resort"
+                fill
+                className="object-cover"
+              />
+            </div>
             <MapPin className="w-8 h-8 text-soft-gold mx-auto mb-4" />
             <h3 className="font-display text-2xl text-chocolate mb-2">{t('Venue', 'Local')}</h3>
             <p className="text-caramel text-sm mb-1">Windhoek Country Club Resort</p>

@@ -1,31 +1,20 @@
 'use client'
 
+import Image from 'next/image'
 import { LanguageProvider, useLanguage } from '@/lib/language'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 const photos = [
-  { captionEn: 'Engagement Session', captionPt: 'Sessao de Noivado', aspect: 'aspect-[3/4]' },
-  { captionEn: 'Sunset in Sossusvlei', captionPt: 'Por do Sol em Sossusvlei', aspect: 'aspect-square' },
-  { captionEn: 'Together in the City', captionPt: 'Juntos na Cidade', aspect: 'aspect-[4/3]' },
-  { captionEn: 'The Proposal', captionPt: 'O Pedido', aspect: 'aspect-[3/4]' },
-  { captionEn: 'Laughter & Joy', captionPt: 'Risos e Alegria', aspect: 'aspect-square' },
-  { captionEn: 'Hand in Hand', captionPt: 'De Maos Dadas', aspect: 'aspect-[4/3]' },
-  { captionEn: 'Desert Love', captionPt: 'Amor no Deserto', aspect: 'aspect-square' },
-  { captionEn: 'Our Adventure', captionPt: 'Nossa Aventura', aspect: 'aspect-[3/4]' },
-  { captionEn: 'Pure Happiness', captionPt: 'Pura Felicidade', aspect: 'aspect-[4/3]' },
-]
-
-const gradients = [
-  'from-chocolate/30 to-chocolate/40',
-  'from-caramel/40 to-mocha/40',
-  'from-soft-gold/40 to-caramel/40',
-  'from-mocha/40 to-chocolate/30',
-  'from-soft-gold/50 to-soft-gold/20',
-  'from-chocolate/30 to-caramel/40',
-  'from-caramel/40 to-soft-gold/40',
-  'from-mocha/40 to-chocolate/30',
-  'from-soft-gold/40 to-caramel/40',
+  { src: '/images/hero-couple.jpg', captionEn: 'Engagement Session', captionPt: 'Sessao de Noivado', aspect: 'aspect-[3/4]' },
+  { src: '/images/gallery/couple-2.jpg', captionEn: 'Sunset in Sossusvlei', captionPt: 'Por do Sol em Sossusvlei', aspect: 'aspect-square' },
+  { src: '/images/gallery/couple-3.webp', captionEn: 'Together in the City', captionPt: 'Juntos na Cidade', aspect: 'aspect-[4/3]' },
+  { src: '/images/gallery/couple-4.jpg', captionEn: 'The Proposal', captionPt: 'O Pedido', aspect: 'aspect-[3/4]' },
+  { src: '/images/couple-portrait.jpg', captionEn: 'Laughter & Joy', captionPt: 'Risos e Alegria', aspect: 'aspect-square' },
+  { src: '/images/gallery/couple-2.jpg', captionEn: 'Hand in Hand', captionPt: 'De Maos Dadas', aspect: 'aspect-[4/3]' },
+  { src: '/images/gallery/couple-3.webp', captionEn: 'Desert Love', captionPt: 'Amor no Deserto', aspect: 'aspect-square' },
+  { src: '/images/gallery/couple-4.jpg', captionEn: 'Our Adventure', captionPt: 'Nossa Aventura', aspect: 'aspect-[3/4]' },
+  { src: '/images/hero-couple.jpg', captionEn: 'Pure Happiness', captionPt: 'Pura Felicidade', aspect: 'aspect-[4/3]' },
 ]
 
 function GalleryContent() {
@@ -48,13 +37,20 @@ function GalleryContent() {
         <div className="max-w-6xl mx-auto columns-1 sm:columns-2 lg:columns-3 gap-4">
           {photos.map((photo, i) => (
             <div key={i} className="break-inside-avoid mb-4 group relative overflow-hidden rounded-2xl">
-              <div className={`${photo.aspect} bg-gradient-to-br ${gradients[i]} relative`}>
+              <div className={`${photo.aspect} relative`}>
+                <Image
+                  src={photo.src}
+                  alt={photo.captionEn}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-chocolate/50">
                   <p className="text-champagne font-display text-xl italic">
                     {t(photo.captionEn, photo.captionPt)}
                   </p>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-chocolate/30 to-transparent">
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-chocolate/60 to-transparent">
                   <p className="text-champagne/80 text-xs">{t(photo.captionEn, photo.captionPt)}</p>
                 </div>
               </div>
