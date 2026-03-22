@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useLanguage } from '@/lib/language'
 import Link from 'next/link'
-import { Heart, Wine, Music, Smile, MapPin, Church, Camera, CalendarHeart } from 'lucide-react'
+import { Heart, Wine, Music, MapPin, Church, Camera, CalendarHeart } from 'lucide-react'
 
 const preEvents = [
   {
@@ -11,8 +11,8 @@ const preEvents = [
     time: '09:00 AM',
     titleEn: 'Church Announcement',
     titlePt: 'Anuncio na Igreja',
-    descEn: 'Join us for the official church announcement of our upcoming wedding. Family and friends are warmly invited to share this special moment with us.',
-    descPt: 'Junte-se a nos para o anuncio oficial do nosso casamento. Familiares e amigos sao cordialmente convidados a partilhar este momento especial connosco.',
+    descEn: 'Join us for the official church announcement of our upcoming wedding. Family and friends are warmly invited to share this special moment with us. Dress code: guests may wear anything appropriate.',
+    descPt: 'Junte-se a nos para o anuncio oficial do nosso casamento. Familiares e amigos sao cordialmente convidados a partilhar este momento especial connosco. Traje: os convidados podem usar qualquer roupa apropriada.',
     venue: 'Eros Primary School Hall, Windhoek',
     icon: Church,
   },
@@ -23,20 +23,20 @@ const weddingEvents = [
     time: '10:00 AM',
     titleEn: 'Wedding Ceremony',
     titlePt: 'Cerimonia de Casamento',
-    descEn: 'Join us as we exchange our vows and begin our journey as husband and wife. The ceremony will take place in the garden chapel at the Windhoek Country Club Resort.',
-    descPt: 'Junte-se a nos enquanto trocamos nossos votos e comecamos nossa jornada como marido e esposa. A cerimonia sera no jardim da capela do Windhoek Country Club Resort.',
+    descEn: 'Join us as we exchange our vows and begin our journey as husband and wife, from 10:00 to 12:30. The ceremony will take place in the garden chapel at the Windhoek Country Club Resort.',
+    descPt: 'Junte-se a nos enquanto trocamos nossos votos e comecamos nossa jornada como marido e esposa, das 10:00 as 12:30. A cerimonia sera no jardim da capela do Windhoek Country Club Resort.',
     icon: Heart,
   },
   {
-    time: '12:00 PM',
+    time: '12:30 PM',
     titleEn: 'Photos & Portraits',
     titlePt: 'Fotos e Retratos',
-    descEn: 'Family and bridal party photographs in the beautiful resort gardens. Guests are welcome to relax and enjoy the grounds.',
-    descPt: 'Fotografias da familia e do cortejo nupcial nos belos jardins do resort. Os convidados sao bem-vindos a relaxar e desfrutar do espaco.',
+    descEn: 'Family and bridal party photographs in the beautiful resort gardens from 12:30 to 14:00. Guests are welcome to relax and enjoy the grounds.',
+    descPt: 'Fotografias da familia e do cortejo nupcial nos belos jardins do resort das 12:30 as 14:00. Os convidados sao bem-vindos a relaxar e desfrutar do espaco.',
     icon: Camera,
   },
   {
-    time: '1:00 PM',
+    time: '4:30 PM',
     titleEn: 'Cocktail Hour',
     titlePt: 'Hora do Coquetel',
     descEn: 'Enjoy canapes and refreshments on the terrace while we capture family photographs. Live music will set the mood as guests mingle.',
@@ -44,20 +44,12 @@ const weddingEvents = [
     icon: Wine,
   },
   {
-    time: '3:00 PM',
+    time: '6:00 PM',
     titleEn: 'Reception & Dinner',
     titlePt: 'Recepcao e Jantar',
-    descEn: 'The main celebration begins! Enjoy a three-course dinner, heartfelt speeches, the first dance, and an evening of celebration with family and friends.',
-    descPt: 'A grande celebracao comeca! Aproveite um jantar de tres pratos, discursos emocionantes, a primeira danca e uma noite de celebracao com familia e amigos.',
+    descEn: 'The reception begins from 18:00 until late with dinner, dancing, and celebration.',
+    descPt: 'A recepcao comeca as 18:00 e continua pela noite com jantar, danca e celebracao.',
     icon: Music,
-  },
-  {
-    time: '6:00 PM',
-    titleEn: 'Dancing & Celebration',
-    titlePt: 'Danca e Celebracao',
-    descEn: 'Hit the dance floor! The DJ takes over for an unforgettable night of music, laughter, and celebration. Dancing until late!',
-    descPt: 'Va para a pista de danca! O DJ assume para uma noite inesquecivel de musica, risos e celebracao. Dancando ate tarde!',
-    icon: Smile,
   },
 ]
 

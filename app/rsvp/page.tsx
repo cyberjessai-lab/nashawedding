@@ -3,31 +3,52 @@
 import { useState, FormEvent } from 'react'
 import { useLanguage } from '@/lib/language'
 import Link from 'next/link'
-import { Send, Check, Heart } from 'lucide-react'
+import { Send, Check, Heart, Plus, X } from 'lucide-react'
 
 export default function RsvpPage() {
   const { t } = useLanguage()
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
-  const [name, setName] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [surname, setSurname] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [attending, setAttending] = useState('yes')
-  const [guests, setGuests] = useState('1')
+  const [additionalGuests, setAdditionalGuests] = useState<string[]>([])
   const [dietary, setDietary] = useState('')
   const [message, setMessage] = useState('')
+
+  const addGuest = () => {
+    setAdditionalGuests([...additionalGuests, ''])
+  }
+
+  const removeGuest = (index: number) => {
+    setAdditionalGuests(additionalGuests.filter((_, i) => i !== index))
+  }
+
+  const updateGuest = (index: number, value: string) => {
+    const updated = [...additionalGuests]
+    updated[index] = value
+    setAdditionalGuests(updated)
+  }
+
+  const totalGuests = additionalGuests.length + 1
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setSending(true)
 
-    const subject = `Wedding RSVP — ${name}`
+    const fullName = `${firstName} ${surname}`
+    const subject = `Wedding RSVP — ${fullName}`
     const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Phone: ${phone || 'Not provided'}`,
+      `Name: ${fullName}`,
+      `Email: ${email || 'Not provided'}`,
+      `Phone: ${phone}`,
       `Attending: ${attending === 'yes' ? 'Joyfully Accept' : 'Regretfully Decline'}`,
-      attending === 'yes' ? `Number of Guests: ${guests}` : '',
+      attending === 'yes' ? `Total Guests: ${totalGuests}` : '',
+      attending === 'yes' && additionalGuests.length > 0
+        ? `Additional Guests:\n${additionalGuests.map((g, i) => `  ${i + 1}. ${g}`).join('\n')}`
+        : '',
       attending === 'yes' && dietary ? `Dietary Requirements: ${dietary}` : '',
       message ? `Personal Message: ${message}` : '',
     ].filter(Boolean).join('\n')
@@ -91,40 +112,54 @@ export default function RsvpPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-chocolate text-sm mb-2 font-medium">
-                  {t('Full Name', 'Nome Completo')} *
+                  {t('First Name', 'Primeiro Nome')} *
                 </label>
                 <input
                   type="text"
                   required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
                 />
               </div>
               <div>
                 <label className="block text-chocolate text-sm mb-2 font-medium">
-                  {t('Phone Number', 'Numero de Telefone')}
+                  {t('Surname', 'Sobrenome')} *
                 </label>
                 <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  type="text"
+                  required
+                  value={surname}
+                  onChange={(e) => setSurname(e.target.value)}
                   className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-chocolate text-sm mb-2 font-medium">
-                {t('Email Address', 'Endereco de Email')} *
-              </label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-chocolate text-sm mb-2 font-medium">
+                  {t('Phone Number', 'Numero de Telefone')} *
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
+                />
+              </div>
+              <div>
+                <label className="block text-chocolate text-sm mb-2 font-medium">
+                  {t('Email Address', 'Endereco de Email')}
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
+                />
+              </div>
             </div>
 
             <div>
@@ -162,24 +197,47 @@ export default function RsvpPage() {
               <>
                 <div>
                   <label className="block text-chocolate text-sm mb-2 font-medium">
-                    {t('Number of Guests (including yourself)', 'Numero de Convidados (incluindo voce)')}
+                    {t('Additional Guests', 'Convidados Adicionais')}
                   </label>
-                  <div className="flex gap-2">
-                    {['1', '2', '3', '4', '5+'].map((n) => (
-                      <button
-                        key={n}
-                        type="button"
-                        onClick={() => setGuests(n)}
-                        className={`flex-1 py-3 rounded-lg border-2 text-sm font-medium transition-all ${
-                          guests === n
-                            ? 'border-soft-gold bg-soft-gold text-white'
-                            : 'border-beige text-caramel hover:border-soft-gold/50'
-                        }`}
-                      >
-                        {n}
-                      </button>
-                    ))}
-                  </div>
+                  <p className="text-caramel/60 text-xs mb-3">
+                    {t(
+                      `You are guest #1. Add anyone joining you below. Total attending: ${totalGuests}`,
+                      `Voce e o convidado #1. Adicione quem vira com voce abaixo. Total presente: ${totalGuests}`
+                    )}
+                  </p>
+
+                  {additionalGuests.length > 0 && (
+                    <div className="space-y-2 mb-3">
+                      {additionalGuests.map((guest, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            required
+                            value={guest}
+                            onChange={(e) => updateGuest(index, e.target.value)}
+                            placeholder={t(`Guest ${index + 2} full name`, `Nome completo do convidado ${index + 2}`)}
+                            className="flex-1 bg-white border border-beige rounded-lg px-4 py-2.5 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeGuest(index)}
+                            className="w-9 h-9 rounded-lg border border-beige text-caramel/60 hover:border-red-300 hover:text-red-400 hover:bg-red-50 flex items-center justify-center transition-all"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={addGuest}
+                    className="inline-flex items-center gap-1.5 text-soft-gold text-sm font-medium hover:text-chocolate transition-colors"
+                  >
+                    <Plus className="w-4 h-4" />
+                    {t('Add Guest', 'Adicionar Convidado')}
+                  </button>
                 </div>
 
                 <div>

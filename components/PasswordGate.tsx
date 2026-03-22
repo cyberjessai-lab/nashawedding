@@ -52,7 +52,7 @@ export default function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
       <div className="max-w-md w-full text-center">
         <div className="mb-8">
           <p className="text-soft-gold uppercase tracking-[0.3em] text-xs mb-4">
-            {t('You are invited', 'Voce esta convidado')}
+            {t('Welcome to Celson & Nasha\'s wedding', 'Bem-vindo ao casamento de Celson e Nasha')}
           </p>
           <h1 className="font-display text-5xl font-light text-chocolate italic">
             Celson &amp; Nasha
@@ -87,8 +87,8 @@ export default function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
 
         <p className="text-caramel/50 text-xs mt-8">
           {t(
-            'The password is on your invitation card.',
-            'A senha esta no seu cartao de convite.'
+            'Please enter the password provided in your invitation to continue.',
+            'Por favor, insira a senha fornecida no seu convite para continuar.'
           )}
         </p>
       </div>

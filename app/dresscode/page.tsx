@@ -8,7 +8,7 @@ const colours = [
   { name: 'Mocha', hex: '#5D4037' },
   { name: 'Caramel', hex: '#8D6E63' },
   { name: 'Beige', hex: '#D7CCC8' },
-  { name: 'Cream', hex: '#FFF8F0' },
+  { name: 'Taupe', hex: '#8B7D6B' },
   { name: 'Soft Gold', hex: '#C9A96E' },
 ]
 
@@ -76,8 +76,8 @@ export default function DressCodePage() {
           <ul className="space-y-3">
             {[
               t(
-                'Floor-length or midi dresses in earthy tones, champagne, or gold',
-                'Vestidos longos ou midi em tons terrosos, champanhe ou dourado'
+                'Floor-length or midi dresses in earthy tones or gold',
+                'Vestidos longos ou midi em tons terrosos ou dourado'
               ),
               t(
                 'Elegant jumpsuits or tailored suits are welcome',
@@ -88,8 +88,8 @@ export default function DressCodePage() {
                 'Saltos ou sapatos rasos elegantes — o local tem caminhos de jardim'
               ),
               t(
-                'Please avoid white, ivory, or bright neon colours',
-                'Por favor, evite branco, marfim ou cores neon brilhantes'
+                'Please avoid white, ivory, cream, champagne, or bright neon colours',
+                'Por favor, evite branco, marfim, creme, champanhe ou cores neon brilhantes'
               ),
             ].map((rule, i) => (
               <li key={i} className="flex items-start gap-3">
@@ -129,6 +129,26 @@ export default function DressCodePage() {
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+
+      {/* Additional notes */}
+      <div className="max-w-2xl mx-auto mt-12 space-y-6">
+        <div className="card-elegant text-center">
+          <p className="text-caramel text-sm leading-relaxed">
+            {t(
+              'There is absolutely no pressure — please feel free to wear what you already have.',
+              'Nao ha absolutamente nenhuma pressao — sinta-se a vontade para usar o que ja tem.'
+            )}
+          </p>
+        </div>
+        <div className="card-elegant text-center">
+          <p className="text-caramel text-sm leading-relaxed">
+            {t(
+              'Both the ceremony and reception share the same dress code.',
+              'Tanto a cerimonia como a recepcao partilham o mesmo traje.'
+            )}
+          </p>
         </div>
       </div>
     </div>
