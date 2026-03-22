@@ -2,11 +2,25 @@
 
 import Image from 'next/image'
 import { useLanguage } from '@/lib/language'
-import { Heart, Wine, Music, Smile, MapPin } from 'lucide-react'
+import Link from 'next/link'
+import { Heart, Wine, Music, Smile, MapPin, Church, Camera, CalendarHeart } from 'lucide-react'
 
-const events = [
+const preEvents = [
   {
-    time: '2:00 PM',
+    date: 'Saturday, 16 August 2026',
+    time: '09:00 AM',
+    titleEn: 'Church Announcement',
+    titlePt: 'Anuncio na Igreja',
+    descEn: 'Join us for the official church announcement of our upcoming wedding. Family and friends are warmly invited to share this special moment with us.',
+    descPt: 'Junte-se a nos para o anuncio oficial do nosso casamento. Familiares e amigos sao cordialmente convidados a partilhar este momento especial connosco.',
+    venue: 'Eros Primary School Hall, Windhoek',
+    icon: Church,
+  },
+]
+
+const weddingEvents = [
+  {
+    time: '10:00 AM',
     titleEn: 'Wedding Ceremony',
     titlePt: 'Cerimonia de Casamento',
     descEn: 'Join us as we exchange our vows and begin our journey as husband and wife. The ceremony will take place in the garden chapel at the Windhoek Country Club Resort.',
@@ -14,7 +28,15 @@ const events = [
     icon: Heart,
   },
   {
-    time: '3:30 PM',
+    time: '12:00 PM',
+    titleEn: 'Photos & Portraits',
+    titlePt: 'Fotos e Retratos',
+    descEn: 'Family and bridal party photographs in the beautiful resort gardens. Guests are welcome to relax and enjoy the grounds.',
+    descPt: 'Fotografias da familia e do cortejo nupcial nos belos jardins do resort. Os convidados sao bem-vindos a relaxar e desfrutar do espaco.',
+    icon: Camera,
+  },
+  {
+    time: '1:00 PM',
     titleEn: 'Cocktail Hour',
     titlePt: 'Hora do Coquetel',
     descEn: 'Enjoy canapes and refreshments on the terrace while we capture family photographs. Live music will set the mood as guests mingle.',
@@ -22,7 +44,7 @@ const events = [
     icon: Wine,
   },
   {
-    time: '5:00 PM',
+    time: '3:00 PM',
     titleEn: 'Reception & Dinner',
     titlePt: 'Recepcao e Jantar',
     descEn: 'The main celebration begins! Enjoy a three-course dinner, heartfelt speeches, the first dance, and an evening of celebration with family and friends.',
@@ -30,7 +52,7 @@ const events = [
     icon: Music,
   },
   {
-    time: '8:00 PM',
+    time: '6:00 PM',
     titleEn: 'Dancing & Celebration',
     titlePt: 'Danca e Celebracao',
     descEn: 'Hit the dance floor! The DJ takes over for an unforgettable night of music, laughter, and celebration. Dancing until late!',
@@ -45,43 +67,91 @@ export default function EventsPage() {
   return (
     <div className="min-h-screen bg-cream pt-32 pb-24 px-6">
       <div className="text-center mb-20">
-        <p className="text-soft-gold uppercase tracking-[0.3em] text-xs mb-4">
+        <p className="text-soft-gold uppercase tracking-[0.3em] text-xs mb-4 animate-fade-in">
           {t('The Big Day', 'O Grande Dia')}
         </p>
-        <h1 className="font-display text-5xl md:text-6xl text-chocolate italic font-light mb-6">
+        <h1 className="font-display text-5xl md:text-6xl text-chocolate italic font-light mb-6 animate-fade-in-up">
           {t('Wedding Events', 'Eventos do Casamento')}
         </h1>
         <div className="section-divider" />
-        <p className="text-caramel">Saturday, 22 August 2026</p>
       </div>
 
-      <div className="max-w-3xl mx-auto space-y-8">
-        {events.map((event) => {
+      {/* Pre-wedding: Church Announcement */}
+      <div className="max-w-3xl mx-auto mb-16">
+        <h2 className="font-display text-2xl text-chocolate text-center italic font-light mb-8 animate-fade-in">
+          {t('Pre-Wedding', 'Pre-Casamento')}
+        </h2>
+        {preEvents.map((event) => {
           const Icon = event.icon
           return (
-            <div key={event.time} className="card-elegant flex flex-col sm:flex-row items-start gap-6">
-              <div className="flex-shrink-0 text-center">
-                <div className="w-14 h-14 rounded-full bg-soft-gold/10 border border-soft-gold/30 flex items-center justify-center mb-2">
-                  <Icon className="w-6 h-6 text-soft-gold" />
+            <div key={event.titleEn} className="card-elegant border-2 border-soft-gold/20 animate-fade-in-up">
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <div className="flex-shrink-0 text-center">
+                  <div className="w-16 h-16 rounded-full bg-soft-gold/10 border-2 border-soft-gold/30 flex items-center justify-center mb-2">
+                    <Icon className="w-7 h-7 text-soft-gold" />
+                  </div>
                 </div>
-                <p className="text-soft-gold text-xs font-medium">{event.time}</p>
-              </div>
-              <div>
-                <h3 className="font-display text-2xl text-chocolate mb-3">
-                  {t(event.titleEn, event.titlePt)}
-                </h3>
-                <p className="text-caramel leading-relaxed text-sm">
-                  {t(event.descEn, event.descPt)}
-                </p>
+                <div>
+                  <p className="text-soft-gold text-xs font-medium uppercase tracking-wider mb-1">
+                    {event.date} — {event.time}
+                  </p>
+                  <h3 className="font-display text-2xl text-chocolate mb-3">
+                    {t(event.titleEn, event.titlePt)}
+                  </h3>
+                  <p className="text-caramel leading-relaxed text-sm mb-3">
+                    {t(event.descEn, event.descPt)}
+                  </p>
+                  <div className="flex items-center gap-2 text-caramel/60">
+                    <MapPin className="w-3.5 h-3.5" />
+                    <span className="text-xs">{event.venue}</span>
+                  </div>
+                </div>
               </div>
             </div>
           )
         })}
       </div>
 
+      {/* Wedding Day */}
+      <div className="max-w-3xl mx-auto">
+        <div className="flex items-center gap-4 mb-8">
+          <div className="h-px flex-1 bg-soft-gold/20" />
+          <h2 className="font-display text-2xl text-chocolate text-center italic font-light flex items-center gap-3">
+            <CalendarHeart className="w-5 h-5 text-soft-gold" />
+            {t('Wedding Day', 'Dia do Casamento')}
+          </h2>
+          <div className="h-px flex-1 bg-soft-gold/20" />
+        </div>
+        <p className="text-center text-soft-gold text-sm mb-10">Saturday, 22 August 2026</p>
+
+        <div className="space-y-6">
+          {weddingEvents.map((event, i) => {
+            const Icon = event.icon
+            return (
+              <div key={event.time} className="card-elegant flex flex-col sm:flex-row items-start gap-6 animate-fade-in-up" style={{ animationDelay: `${i * 0.1}s` }}>
+                <div className="flex-shrink-0 text-center">
+                  <div className="w-14 h-14 rounded-full bg-soft-gold/10 border border-soft-gold/30 flex items-center justify-center mb-2">
+                    <Icon className="w-6 h-6 text-soft-gold" />
+                  </div>
+                  <p className="text-soft-gold text-xs font-medium">{event.time}</p>
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl text-chocolate mb-3">
+                    {t(event.titleEn, event.titlePt)}
+                  </h3>
+                  <p className="text-caramel leading-relaxed text-sm">
+                    {t(event.descEn, event.descPt)}
+                  </p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
       {/* Venue card */}
       <div className="max-w-xl mx-auto mt-16">
-        <div className="card-elegant text-center overflow-hidden">
+        <div className="card-elegant text-center overflow-hidden animate-fade-in-up">
           <div className="relative h-48 -mx-8 -mt-8 mb-6">
             <Image
               src="/images/venue-country-club.jpeg"
@@ -94,15 +164,27 @@ export default function EventsPage() {
           <h3 className="font-display text-2xl text-chocolate mb-2">{t('Venue', 'Local')}</h3>
           <p className="text-caramel text-sm mb-1">Windhoek Country Club Resort</p>
           <p className="text-caramel/60 text-xs mb-6">Western Bypass, Windhoek, Namibia</p>
-          <a
-            href="https://maps.google.com/?q=Windhoek+Country+Club+Resort"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline-gold inline-block"
-          >
-            {t('Get Directions', 'Obter Direcoes')}
-          </a>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a
+              href="https://maps.google.com/?q=Windhoek+Country+Club+Resort"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline-gold"
+            >
+              {t('Get Directions', 'Obter Direcoes')}
+            </a>
+            <Link href="/accommodation" className="btn-gold">
+              {t('Find a Hotel', 'Encontrar Hotel')}
+            </Link>
+          </div>
         </div>
+      </div>
+
+      {/* CTA */}
+      <div className="text-center mt-16">
+        <Link href="/rsvp" className="btn-gold text-base px-10 py-4">
+          {t('RSVP Now', 'Confirmar Presenca')}
+        </Link>
       </div>
     </div>
   )
