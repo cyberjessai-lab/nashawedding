@@ -8,13 +8,18 @@ export default function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
   const [error, setError] = useState(false)
   const { language, setLanguage, t } = useLanguage()
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const pwd = input.toLowerCase().trim()
     if (pwd === 'amor eterno' || pwd === 'amoreterno') {
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('nasha-unlocked', 'true')
       }
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event: 'password_login' }),
+      }).catch(() => {})
       onUnlock()
     } else {
       setError(true)

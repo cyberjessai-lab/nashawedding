@@ -35,35 +35,36 @@ export default function RsvpPage() {
 
   const totalGuests = additionalGuests.length + 1
 
+  const [submitError, setSubmitError] = useState(false)
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setSending(true)
+    setSubmitError(false)
 
-    const fullName = `${firstName} ${surname}`
-    const subject = `Wedding RSVP — ${fullName}`
-    const body = [
-      `Name: ${fullName}`,
-      `Email: ${email || 'Not provided'}`,
-      `Phone: ${phone}`,
-      `Attending: ${attending === 'yes' ? 'Joyfully Accept' : 'Regretfully Decline'}`,
-      attending === 'yes' ? `Total Guests: ${totalGuests}` : '',
-      attending === 'yes' && additionalGuests.length > 0
-        ? `Additional Guests:\n${additionalGuests.map((g, i) => `  ${i + 1}. ${g}`).join('\n')}`
-        : '',
-      attending === 'yes' && dietary ? `Dietary Requirements: ${dietary}` : '',
-      message ? `Personal Message: ${message}` : '',
-    ].filter(Boolean).join('\n')
+    try {
+      const res = await fetch('/api/rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName,
+          surname,
+          phone,
+          email,
+          attending,
+          additionalGuests: attending === 'yes' ? additionalGuests : [],
+          dietary: attending === 'yes' ? dietary : '',
+          message,
+        }),
+      })
 
-    // Send via mailto
-    const mailtoSubject = encodeURIComponent(subject)
-    const mailtoBody = encodeURIComponent(body)
-    window.open(
-      `mailto:mbinajedanisha@gmail.com?cc=nashasch@gmail.com&subject=${mailtoSubject}&body=${mailtoBody}`,
-      '_self'
-    )
-
-    setSending(false)
-    setSubmitted(true)
+      if (!res.ok) throw new Error('Submit failed')
+      setSubmitted(true)
+    } catch {
+      setSubmitError(true)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -286,6 +287,14 @@ export default function RsvpPage() {
               <Send className="w-4 h-4" />
               {sending ? t('Sending...', 'Enviando...') : t('Send RSVP', 'Enviar RSVP')}
             </button>
+            {submitError && (
+              <p className="text-red-400 text-xs text-center mt-2">
+                {t(
+                  'Something went wrong. Please try again.',
+                  'Algo deu errado. Por favor, tente novamente.'
+                )}
+              </p>
+            )}
           </form>
         )}
       </div>

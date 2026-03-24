@@ -28,13 +28,38 @@ export default function GuestbookPage() {
   const [message, setMessage] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (e: FormEvent) => {
+  const [sending, setSending] = useState(false)
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setMessages([{ name, date: 'March 2026', message }, ...messages])
-    setName('')
-    setMessage('')
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
+    setSending(true)
+
+    try {
+      const res = await fetch('/api/guestbook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, message }),
+      })
+
+      if (!res.ok) throw new Error('Submit failed')
+
+      const now = new Date()
+      const dateStr = now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+      setMessages([{ name, date: dateStr, message }, ...messages])
+      setName('')
+      setMessage('')
+      setSubmitted(true)
+      setTimeout(() => setSubmitted(false), 3000)
+    } catch {
+      // Silently fail — message still added locally
+      setMessages([{ name, date: 'March 2026', message }, ...messages])
+      setName('')
+      setMessage('')
+      setSubmitted(true)
+      setTimeout(() => setSubmitted(false), 3000)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -84,8 +109,8 @@ export default function GuestbookPage() {
               className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none transition-colors resize-none"
             />
           </div>
-          <button type="submit" className="btn-gold w-full">
-            {t('Leave a Message', 'Deixar Mensagem')}
+          <button type="submit" disabled={sending} className="btn-gold w-full">
+            {sending ? t('Sending...', 'Enviando...') : t('Leave a Message', 'Deixar Mensagem')}
           </button>
           {submitted && (
             <p className="text-soft-gold text-xs text-center">
