@@ -165,9 +165,9 @@ export default function StoryPage() {
               <p className="text-soft-gold uppercase tracking-wider text-xs mb-2">
                 {t('The Groom', 'O Noivo')}
               </p>
-              <h3 className="font-display text-2xl text-chocolate mb-2">Celson Schiceya</h3>
+              <h3 className="font-display text-2xl text-chocolate mb-2">Celson da Costa Lourenço Nangolo</h3>
               <p className="text-caramel text-sm">
-                {t('Son of the Schiceya family', 'Filho da familia Schiceya')}
+                {t('Son of the Nangolo family', 'Filho da familia Nangolo')}
               </p>
             </div>
             <div className="card-elegant text-center animate-fade-in-up delay-200">
@@ -177,9 +177,9 @@ export default function StoryPage() {
               <p className="text-soft-gold uppercase tracking-wider text-xs mb-2">
                 {t('The Bride', 'A Noiva')}
               </p>
-              <h3 className="font-display text-2xl text-chocolate mb-2">Nasha Nangolo</h3>
+              <h3 className="font-display text-2xl text-chocolate mb-2">Nasha Schiceya</h3>
               <p className="text-caramel text-sm">
-                {t('Daughter of the Nangolo family', 'Filha da familia Nangolo')}
+                {t('Daughter of the Schiceya family', 'Filha da familia Schiceya')}
               </p>
             </div>
           </div>

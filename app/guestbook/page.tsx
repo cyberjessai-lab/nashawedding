@@ -65,6 +65,7 @@ export default function GuestbookPage() {
             <input
               type="text"
               required
+              maxLength={100}
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none transition-colors"
@@ -77,6 +78,7 @@ export default function GuestbookPage() {
             <textarea
               rows={4}
               required
+              maxLength={1000}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none transition-colors resize-none"

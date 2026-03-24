@@ -19,6 +19,7 @@ export default function RsvpPage() {
   const [message, setMessage] = useState('')
 
   const addGuest = () => {
+    if (additionalGuests.length >= 10) return
     setAdditionalGuests([...additionalGuests, ''])
   }
 
@@ -117,6 +118,7 @@ export default function RsvpPage() {
                 <input
                   type="text"
                   required
+                  maxLength={100}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
@@ -129,6 +131,7 @@ export default function RsvpPage() {
                 <input
                   type="text"
                   required
+                  maxLength={100}
                   value={surname}
                   onChange={(e) => setSurname(e.target.value)}
                   className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
@@ -144,6 +147,9 @@ export default function RsvpPage() {
                 <input
                   type="tel"
                   required
+                  maxLength={20}
+                  pattern="[\d\s\+\-\(\)]{7,20}"
+                  title={t('Enter a valid phone number', 'Insira um numero de telefone valido')}
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
@@ -155,6 +161,7 @@ export default function RsvpPage() {
                 </label>
                 <input
                   type="email"
+                  maxLength={200}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
@@ -215,6 +222,7 @@ export default function RsvpPage() {
                             required
                             value={guest}
                             onChange={(e) => updateGuest(index, e.target.value)}
+                            maxLength={200}
                             placeholder={t(`Guest ${index + 2} full name`, `Nome completo do convidado ${index + 2}`)}
                             className="flex-1 bg-white border border-beige rounded-lg px-4 py-2.5 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all"
                           />
@@ -248,6 +256,7 @@ export default function RsvpPage() {
                     rows={2}
                     value={dietary}
                     onChange={(e) => setDietary(e.target.value)}
+                    maxLength={500}
                     placeholder={t('E.g., vegetarian, halal, allergies...', 'Ex.: vegetariano, halal, alergias...')}
                     className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all resize-none"
                   />
@@ -263,6 +272,7 @@ export default function RsvpPage() {
                 rows={3}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                maxLength={1000}
                 placeholder={t('A note for the couple...', 'Uma nota para o casal...')}
                 className="w-full bg-white border border-beige rounded-lg px-4 py-3 text-chocolate text-sm focus:border-soft-gold focus:outline-none focus:ring-2 focus:ring-soft-gold/20 transition-all resize-none"
               />
