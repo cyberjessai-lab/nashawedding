@@ -6,6 +6,7 @@ import PasswordGate from '@/components/PasswordGate'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import MusicPlayer from '@/components/MusicPlayer'
+import FeedbackWidget from '@/components/FeedbackWidget'
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [unlocked, setUnlocked] = useState(false)
@@ -30,6 +31,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <MusicPlayer />
           <main className="min-h-screen">{children}</main>
           <Footer />
+          <FeedbackWidget />
         </>
       )}
     </LanguageProvider>

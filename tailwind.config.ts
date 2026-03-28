@@ -18,6 +18,15 @@ const config: Config = {
         'soft-gold': '#C9A96E',
         'warm-white': '#FEFCF9',
       },
+      keyframes: {
+        'feedback-slide-up': {
+          from: { opacity: '0', transform: 'translateY(20px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'feedback-slide-up': 'feedback-slide-up 0.3s ease-out',
+      },
       fontFamily: {
         display: ['"Cormorant Garamond"', 'serif'],
         body: ['"Montserrat"', 'sans-serif'],
