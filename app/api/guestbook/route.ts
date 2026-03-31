@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { getRequestGeo } from '@/lib/geo'
 import { supabaseInsert } from '@/lib/supabase'
 
 export async function POST(request: Request) {
@@ -20,14 +19,18 @@ export async function POST(request: Request) {
       )
     }
 
-    const geo = await getRequestGeo()
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+    const city = request.headers.get('x-vercel-ip-city') || 'unknown'
+    const country = request.headers.get('x-vercel-ip-country') || 'unknown'
+    const region = request.headers.get('x-vercel-ip-country-region') || ''
+    const location = [city, region, country].filter(Boolean).join(', ')
 
     const success = await supabaseInsert('wedding_guestbook', {
       name,
       message,
-      ip: geo.ip,
-      location: geo.location,
-      country: geo.country,
+      ip,
+      location,
+      country,
     })
 
     if (!success) {

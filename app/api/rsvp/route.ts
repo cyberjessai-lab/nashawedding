@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { getRequestGeo } from '@/lib/geo'
 import { supabaseInsert } from '@/lib/supabase'
 
 export async function POST(request: Request) {
@@ -30,7 +29,13 @@ export async function POST(request: Request) {
       )
     }
 
-    const geo = await getRequestGeo()
+    // Get geo from Vercel headers (inline, no async headers() needed)
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+    const city = request.headers.get('x-vercel-ip-city') || 'unknown'
+    const country = request.headers.get('x-vercel-ip-country') || 'unknown'
+    const region = request.headers.get('x-vercel-ip-country-region') || ''
+    const location = [city, region, country].filter(Boolean).join(', ')
+
     const totalGuests = (additionalGuests?.length || 0) + 1
     const guestNames = Array.isArray(additionalGuests)
       ? additionalGuests.slice(0, 10).join('; ')
@@ -46,9 +51,9 @@ export async function POST(request: Request) {
       additional_guests: guestNames || null,
       dietary: dietary || null,
       message: message || null,
-      ip: geo.ip,
-      location: geo.location,
-      country: geo.country,
+      ip,
+      location,
+      country,
     })
 
     if (!success) {
@@ -59,7 +64,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ ok: true })
-  } catch {
-    return NextResponse.json({ ok: false }, { status: 500 })
+  } catch (err) {
+    console.error('RSVP error:', err instanceof Error ? err.message : err)
+    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 })
   }
 }
