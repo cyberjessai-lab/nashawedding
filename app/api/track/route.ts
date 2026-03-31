@@ -7,7 +7,8 @@ export async function POST(request: Request) {
     const { event } = await request.json()
     const geo = await getRequestGeo()
 
-    await supabaseInsert('wedding_logins', {
+    // Track endpoint is fire-and-forget — always return ok
+    supabaseInsert('wedding_logins', {
       event: event || 'password_login',
       ip: geo.ip,
       city: geo.city,
@@ -16,7 +17,7 @@ export async function POST(request: Request) {
       latitude: geo.latitude,
       longitude: geo.longitude,
       location: geo.location,
-    })
+    }).catch(() => {})
 
     return NextResponse.json({ ok: true })
   } catch {

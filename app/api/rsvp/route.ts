@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       ? additionalGuests.slice(0, 10).join('; ')
       : ''
 
-    await supabaseInsert('wedding_rsvp', {
+    const success = await supabaseInsert('wedding_rsvp', {
       first_name: firstName,
       surname,
       phone,
@@ -50,6 +50,13 @@ export async function POST(request: Request) {
       location: geo.location,
       country: geo.country,
     })
+
+    if (!success) {
+      return NextResponse.json(
+        { ok: false, error: 'Failed to save RSVP. Please try again.' },
+        { status: 502 }
+      )
+    }
 
     return NextResponse.json({ ok: true })
   } catch {

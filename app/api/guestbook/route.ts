@@ -22,13 +22,20 @@ export async function POST(request: Request) {
 
     const geo = await getRequestGeo()
 
-    await supabaseInsert('wedding_guestbook', {
+    const success = await supabaseInsert('wedding_guestbook', {
       name,
       message,
       ip: geo.ip,
       location: geo.location,
       country: geo.country,
     })
+
+    if (!success) {
+      return NextResponse.json(
+        { ok: false, error: 'Failed to save message. Please try again.' },
+        { status: 502 }
+      )
+    }
 
     return NextResponse.json({ ok: true })
   } catch {

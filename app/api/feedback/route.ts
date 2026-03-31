@@ -28,13 +28,20 @@ export async function POST(request: Request) {
       )
     }
 
-    await supabaseInsert('wedding_feedback', {
+    const success = await supabaseInsert('wedding_feedback', {
       user_name: user_name?.trim() || null,
       user_email: user_email?.trim() || null,
       type: type || 'feedback',
       message: message.trim(),
       page_path: page_path || null,
     })
+
+    if (!success) {
+      return NextResponse.json(
+        { ok: false, error: 'Failed to save feedback. Please try again.' },
+        { status: 502 }
+      )
+    }
 
     return NextResponse.json({ ok: true })
   } catch {
