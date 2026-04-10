@@ -27,9 +27,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <PasswordGate onUnlock={() => setUnlocked(true)} />
       ) : (
         <>
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[99999] focus:bg-soft-gold focus:text-chocolate focus:px-6 focus:py-3 focus:rounded-lg focus:font-semibold focus:text-sm">
+            Skip to content
+          </a>
           <Navbar />
           <MusicPlayer />
-          <main className="min-h-screen">{children}</main>
+          <main id="main-content" tabIndex={-1} className="min-h-screen">{children}</main>
           <Footer />
           <FeedbackWidget />
         </>

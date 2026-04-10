@@ -4,8 +4,21 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Celson & Nasha — 22 August 2026',
-  description: 'Wedding celebration of Celson & Nasha — 22 August 2026 at Windhoek Country Club Resort',
-  themeColor: '#FFF8F0',
+  description: 'Wedding celebration of Celson da Costa Lourenço Nangolo & Nasha Schiceya — 22 August 2026 at Windhoek Country Club Resort, Namibia.',
+  openGraph: {
+    title: 'Celson & Nasha — 22 August 2026',
+    description: 'Wedding celebration at Windhoek Country Club Resort',
+    url: 'https://nashandcelson.vercel.app',
+    images: [{ url: 'https://nashandcelson.vercel.app/images/hero-couple.jpg', width: 1200, height: 630 }],
+    type: 'website',
+    locale: 'en_NA',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Celson & Nasha — 22 August 2026',
+    description: 'Wedding celebration at Windhoek Country Club Resort',
+    images: ['https://nashandcelson.vercel.app/images/hero-couple.jpg'],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

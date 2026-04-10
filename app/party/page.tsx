@@ -22,7 +22,7 @@ const pairs = [
   },
   {
     groomsman: { name: 'Gilberto da Costa', photo: '/images/party/gilberto.jpg' },
-    bridesmaid: { name: 'Angélica Garcia', photo: '/images/party/angelica.jpg' },
+    bridesmaid: { name: 'Angélica Garcia', photo: '/images/party/angelique.jpg' },
   },
 ]
 
