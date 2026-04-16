@@ -1,39 +1,29 @@
-export async function supabaseInsert(table: string, data: Record<string, unknown>) {
-  const url = process.env.SUPABASE_URL
-  const key = process.env.SUPABASE_ANON_KEY
+import { neon } from '@neondatabase/serverless'
 
-  if (!url || !key) {
-    console.error(`Supabase insert to ${table} skipped: missing SUPABASE_URL or SUPABASE_ANON_KEY`)
+export async function supabaseInsert(table: string, data: Record<string, unknown>) {
+  const databaseUrl = process.env.DATABASE_URL
+
+  if (!databaseUrl) {
+    console.error(`DB insert to ${table} skipped: missing DATABASE_URL`)
     return false
   }
 
   try {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 8000)
+    const sql = neon(databaseUrl)
 
-    const res = await fetch(`${url}/rest/v1/${table}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        apikey: key,
-        Authorization: `Bearer ${key}`,
-        Prefer: 'return=minimal',
-      },
-      body: JSON.stringify(data),
-      signal: controller.signal,
-    })
+    const columns = Object.keys(data)
+    const values = Object.values(data)
 
-    clearTimeout(timeout)
+    // Build parameterised INSERT: INSERT INTO table ("col1", "col2") VALUES ($1, $2)
+    const colList = columns.map(c => `"${c}"`).join(', ')
+    const paramList = columns.map((_, i) => `$${i + 1}`).join(', ')
+    const query = `INSERT INTO ${table} (${colList}) VALUES (${paramList})`
 
-    if (!res.ok) {
-      const err = await res.text()
-      console.error(`Supabase insert to ${table} failed (${res.status}):`, err)
-      return false
-    }
+    await sql.query(query, values)
 
     return true
   } catch (error) {
-    console.error(`Supabase insert to ${table} error:`, error instanceof Error ? error.message : error)
+    console.error(`DB insert to ${table} error:`, error instanceof Error ? error.message : error)
     return false
   }
 }
